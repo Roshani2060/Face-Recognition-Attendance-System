@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student</title>
+    <style>
+        .container { max-width: 600px; margin: 50px auto; font-family: Arial, sans-serif; }
+        h1 { text-align: center; }
+        form { display: flex; flex-direction: column; gap: 15px; }
+        label { font-weight: bold; }
+        input { padding: 8px; font-size: 14px; }
+        button { padding: 10px; font-size: 16px; cursor: pointer; background-color: #4CAF50; color: white; border: none; }
+        .actions { margin-top: 20px; text-align: center; }
+        a { margin: 0 10px; text-decoration: none; color: #007BFF; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Student</h1>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" value="{{ Student.name }}" required>
+
+            <label for="faculty">Faculty:</label>
+            <select name="faculty" id="faculty"  />
+            <option value="">--Select Faculty--</option>
+            <option value="BITM" {% if Student.faculty == "BITM" %}selected{% endif %}>BITM</option>
+            <option value="BHM"{% if Student.faculty == "BHM" %}selected{% endif %}>BHM</option>
+            <option value="BBS" {% if Student.faculty == "BBS" %}selected{% endif %}>BBS</option>
+            <option value="B.Ed." {% if Student.faculty == "B.Ed." %}selected{% endif %}>B.Ed.</option>
+            </select>
+           <label for="year">Year:</label>
+            <select name="year" id="year">
+            <option value="">--Select Year--</option>
+            <option value="1" {% if Student.year == 1 %}selected{% endif %}>1</option>
+            <option value="2" {% if Student.year == 2 %}selected{% endif %}>2</option>
+            <option value="3" {% if Student.year == 3 %}selected{% endif %}>3</option>
+            <option value="4" {% if Student.year == 4 %}selected{% endif %}>4</option>
+            </select>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" value="{{ Student.email }}">
+
+            <label for="phone_number">Phone Number:</label>
+            <input type="text" name="phone_number" id="phone_number" value="{{ Student.phone_number }}">
+
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <div class="actions">
+            <a href="{% url 'Student-detail' Student.pk %}">Cancel</a>
+            <a href="{% url 'Student-list' %}">Back to List</a>
+        </div>
+    </div>
+</body>
+</html>
